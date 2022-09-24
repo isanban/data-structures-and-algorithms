@@ -9,8 +9,6 @@ Searching is the process of finding an item with specified properties among a co
 - Hashing
 - String searching algorithm, Tries suffix trees
 
-First we will discuss **unordered linear search**, **ordered linear search** and **binary search**.
-
 ### Linear search (unordered)
 
 Linear search is the simplest searching algorithm. In this type of search, a sequential search is made over all items one by one.
@@ -60,3 +58,40 @@ function findElement(arr, elm) {
 
 - Time complexity: O(n)
 - Space complexity: O(1) because no extra space has been used
+
+### Binary search
+
+Binary search is a very simple, yet efficient searching algorithm based on divide-and-conquer strategy. The only caveat is that it works only on sorted arrays, so some preprocessing on data might be required.
+
+#### Implementation of binary search
+
+Middle element: Math.floor((**startIndex** + **endIndex**) / 2)
+
+- Find the middle element of the given array.
+- Compare the middle element with the value we are looking for (called **key**)
+  - If the key is less than the middle element, search in the left half (**endIndex = mid - 1**).
+  - If the key is greater than the middle element, search in the right half (**startIndex = mid + 1**).
+  - If the key is equal to the middle element, return the index of the middle element.
+- Continue with steps 1,2 unitl **startIndex** is either less than or equal to **endIndex**.
+- If the key is still not found return -1.
+
+```js
+function binarySearch(arr, key) {
+  let startIndex = 0;
+  let endIndex = arr.length - 1;
+
+  while (startIndex <= endIndex) {
+    let mid = Math.floor((startIndex + endIndex) / 2);
+
+    if (arr[mid] === key) {
+      return mid;
+    } else if (key < arr[mid]) {
+      endIndex = mid - 1;
+    } else {
+      startIndex = mid + 1;
+    }
+  }
+
+  return -1;
+}
+```
